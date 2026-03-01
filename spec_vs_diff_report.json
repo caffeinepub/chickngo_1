@@ -1,0 +1,165 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-03-01T09:08:04.432Z",
+  "summary": "The diff implements a React/TypeScript frontend using TanStack Router, an ICP (Internet Computer) Motoko backend, and Internet Identity authentication. This is fundamentally incompatible with the build request, which explicitly requires Core PHP (no frameworks), mysqli with prepared statements, XAMPP compatibility, html5-qrcode JS library, PHP-based QR code library saving PNG files to /qrcodes/, and HTML5/CSS3/Vanilla JS only. Nearly every constraint and requirement is violated. The diff uses React, TypeScript, Tailwind CSS, TanStack Router, React Query, Motoko smart contracts, Internet Identity, and an external QR API — all of which are either explicitly forbidden or not requested.",
+  "missing_requirements": [
+    {
+      "id": "REQ-1",
+      "requirement": "Secure authentication with login.php and logout.php using Core PHP sessions, auth_check include, redirects, and default admin credentials stored in a MySQL database.",
+      "reason": "The diff uses a React/TypeScript frontend with an ICP Motoko actor for authentication — no PHP files (login.php, logout.php, auth_check) exist anywhere in the diff.",
+      "evidence": [
+        "frontend/src/pages/Login.tsx",
+        "frontend/src/contexts/AuthContext.tsx",
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "requirement": "Admin dashboard page (pages/dashboard.php) with live data fetched from MySQL database using mysqli prepared statements.",
+      "reason": "Dashboard is implemented in React (Dashboard.tsx) using localStorage and an ICP actor, not PHP with mysqli. No pages/dashboard.php exists.",
+      "evidence": [
+        "frontend/src/pages/Dashboard.tsx",
+        "frontend/src/hooks/useQueries.ts"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "requirement": "Add Customer module (pages/add_customer.php) with server-side PHP validation, mysqli prepared statements, PHP QR code library saving PNG to /qrcodes/<customer_id>.png.",
+      "reason": "Add Customer is implemented in React using localStorage. QR codes are generated via an external API (api.qrserver.com), not a PHP library saving PNG files locally. No pages/add_customer.php exists.",
+      "evidence": [
+        "frontend/src/pages/AddCustomer.tsx",
+        "frontend/src/components/QRCardPreview.tsx"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "requirement": "Real-time QR Scanner page (pages/scan.php) using html5-qrcode JavaScript library, AJAX to a PHP backend endpoint, DB updates via mysqli.",
+      "reason": "Scanner is implemented in React using a custom useQRScanner hook (not html5-qrcode library). Backend endpoint is an ICP actor, not PHP/mysqli. No pages/scan.php exists.",
+      "evidence": [
+        "frontend/src/pages/ScanQR.tsx"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "requirement": "Customer Management page (pages/customers.php) with server-side pagination and search via PHP/mysqli.",
+      "reason": "Customers page is a React component using localStorage for data. No pages/customers.php with PHP/mysqli backend exists.",
+      "evidence": [
+        "frontend/src/pages/Customers.tsx"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "requirement": "Offers Management page (pages/offers.php) with create, edit, and delete using mysqli prepared statements.",
+      "reason": "Offers page uses React with ICP Motoko actor calls. Edit functionality is missing (only create and delete are present). No pages/offers.php with PHP/mysqli exists.",
+      "evidence": [
+        "frontend/src/pages/Offers.tsx",
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "requirement": "Complete database.sql file creating 'chickngo' database with all four tables (users, customers, scans, offers) and default admin user with hashed password.",
+      "reason": "No database.sql file is present anywhere in the diff. The backend uses a Motoko actor on ICP instead of MySQL.",
+      "evidence": []
+    },
+    {
+      "id": "REQ-8",
+      "requirement": "Server-side PHP session timeout protection redirecting to login.php with a timeout message after 30 minutes of inactivity.",
+      "reason": "Session timeout is implemented client-side in JavaScript (AuthContext.tsx) using sessionStorage, not server-side PHP session invalidation. No PHP auth_check with timeout logic exists.",
+      "evidence": [
+        "frontend/src/contexts/AuthContext.tsx"
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "requirement": "Consistent theme across PHP pages with exact sidebar color #1f2933 and orange #ff6b00, using only HTML5/CSS3/Vanilla JS.",
+      "reason": "Theme is implemented via Tailwind CSS and OKLCH color mappings in a React app, not raw HTML5/CSS3/Vanilla JS as required. The exact hex values are only present in limited print styles, not as primary CSS variables across PHP pages.",
+      "evidence": [
+        "frontend/src/index.css",
+        "frontend/src/components/DashboardLayout.tsx"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Internet Computer Protocol (ICP) Motoko smart contract backend with actor-based architecture",
+      "reason": "The build request explicitly prohibits Internet Identity and any web3 authentication, and requires Core PHP. Using ICP/Motoko was never requested and directly contradicts the requirements.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/hooks/useActor.ts"
+      ]
+    },
+    {
+      "description": "React/TypeScript frontend with TanStack Router and React Query",
+      "reason": "The build request explicitly requires HTML5, CSS3, and Vanilla JavaScript only with no frontend frameworks. React and TypeScript are not permitted.",
+      "evidence": [
+        "frontend/src/App.tsx",
+        "frontend/src/main.tsx"
+      ]
+    },
+    {
+      "description": "Tailwind CSS utility framework for styling",
+      "reason": "The build request restricts frontend to HTML5/CSS3 only. Tailwind CSS is a framework not specified in requirements.",
+      "evidence": [
+        "frontend/src/index.css",
+        "frontend/index.css"
+      ]
+    },
+    {
+      "description": "Internet Identity authentication provider integration via useInternetIdentity hook",
+      "reason": "The build request explicitly lists 'Internet Identity or any web3 authentication' as a non-goal.",
+      "evidence": [
+        "frontend/src/hooks/useInternetIdentity.ts",
+        "frontend/src/main.tsx"
+      ]
+    },
+    {
+      "description": "External QR code API (api.qrserver.com) used for QR generation instead of local PHP library",
+      "reason": "The build request requires a PHP-based QR library saving PNG files to /qrcodes/. Using an external API was not requested and violates the XAMPP-compatible offline constraint.",
+      "evidence": [
+        "frontend/src/components/QRCardPreview.tsx"
+      ]
+    },
+    {
+      "description": "localStorage-based customer and scan data store instead of MySQL database",
+      "reason": "The build request requires a MySQL database with mysqli prepared statements. Customer and scan data stored in localStorage bypasses the database requirement entirely.",
+      "evidence": [
+        "frontend/src/hooks/useQueries.ts"
+      ]
+    },
+    {
+      "description": "Offer redemption functionality deducting points from customers",
+      "reason": "The build request does not include an offer redemption feature — only create, edit, and delete of offers was requested.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    }
+  ],
+  "confidence": 0.97,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/DashboardLayout.tsx",
+    "frontend/src/components/ProtectedRoute.tsx",
+    "frontend/src/components/QRCardPreview.tsx",
+    "frontend/src/contexts/AuthContext.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/AddCustomer.tsx",
+    "frontend/src/pages/Customers.tsx",
+    "frontend/src/pages/Dashboard.tsx",
+    "frontend/src/pages/Login.tsx",
+    "frontend/src/pages/Offers.tsx",
+    "frontend/src/pages/ScanQR.tsx",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

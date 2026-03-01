@@ -1,0 +1,152 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-build-a-secure-authentication-system-with-a-login-page-login-php-and-logout-logout-php-sessions-must-be-validated-on-every-protected-page-via-an-auth-check-include-unauthenticated-access-to-any-protected-url-must-redirect-to-login-display-inline-error-messages-on-failed-login-default-admin-credentials-username-admin-password-admin123",
+      "featureTitle": "Build a secure authentication system with a login page (login.php) and logout (logout.php). Sessions must be validated on every protected page via an auth_check include. Unauthenticated access to any protected URL must redirect to login. Display inline error messages on failed login. Default admin credentials: username 'admin', password 'admin123'.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/ProtectedRoute.tsx",
+        "frontend/src/contexts/AuthContext.tsx",
+        "frontend/src/pages/Login.tsx"
+      ],
+      "components": [
+        "qr-code@1.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "camera@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-the-admin-dashboard-page-pages-dashboard-php-with-three-summary-cards-total-customers-today-s-scans-and-total-points-issued-data-must-be-fetched-live-from-the-database-layout-uses-a-dark-sidebar-1f2933-and-orange-primary-ff6b00-with-white-cards-soft-shadows-and-rounded-corners-to-match-a-modern-saas-aesthetic",
+      "featureTitle": "Create the admin dashboard page (pages/dashboard.php) with three summary cards: Total Customers, Today's Scans, and Total Points Issued. Data must be fetched live from the database. Layout uses a dark sidebar (#1f2933) and orange primary (#ff6b00) with white cards, soft shadows, and rounded corners to match a modern SaaS aesthetic.",
+      "files": [
+        "frontend/src/components/DashboardLayout.tsx",
+        "frontend/src/pages/Dashboard.tsx"
+      ],
+      "components": [
+        "qr-code@1.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "camera@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-the-add-customer-module-pages-add-customer-php-the-form-accepts-name-and-mobile-on-submit-validate-for-duplicates-mobile-must-be-unique-generate-a-unique-customer-id-in-the-format-cust-timestamp-random-number-insert-the-customer-into-the-db-generate-a-qr-code-image-encoding-the-customer-id-using-a-php-qr-code-library-save-the-image-to-qrcodes-customer-id-png-and-display-a-printable-qr-card-preview-on-the-same-page",
+      "featureTitle": "Build the Add Customer module (pages/add_customer.php). The form accepts Name and Mobile. On submit: validate for duplicates (mobile must be unique), generate a unique customer_id in the format CUST + timestamp + random number, insert the customer into the DB, generate a QR code image encoding the customer_id using a PHP QR code library, save the image to /qrcodes/<customer_id>.png, and display a printable QR card preview on the same page.",
+      "files": [
+        "frontend/src/components/QRCardPreview.tsx",
+        "frontend/src/pages/AddCustomer.tsx"
+      ],
+      "components": [
+        "qr-code@1.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "camera@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-the-real-time-qr-scanner-page-pages-scan-php-using-the-html5-qrcode-javascript-library-after-a-successful-scan-extract-the-customer-id-fetch-customer-info-name-mobile-current-points-via-an-ajax-call-to-a-backend-endpoint-and-display-it-on-screen-show-an-add-points-10-button-when-clicked-update-the-customer-s-points-in-the-db-insert-a-record-into-the-scans-table-and-show-a-success-animation-alert",
+      "featureTitle": "Build the real-time QR Scanner page (pages/scan.php) using the html5-qrcode JavaScript library. After a successful scan: extract the customer_id, fetch customer info (name, mobile, current points) via an AJAX call to a backend endpoint, and display it on-screen. Show an 'Add Points (+10)' button. When clicked, update the customer's points in the DB, insert a record into the scans table, and show a success animation/alert.",
+      "files": [
+        "frontend/src/pages/ScanQR.tsx"
+      ],
+      "components": [
+        "qr-code@1.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "camera@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-the-customer-management-page-pages-customers-php-showing-a-searchable-paginated-table-with-columns-name-mobile-points-and-qr-code-preview-thumbnail-include-a-search-bar-that-filters-by-mobile-number-in-real-time-or-on-submit-pagination-should-show-10-customers-per-page",
+      "featureTitle": "Build the Customer Management page (pages/customers.php) showing a searchable, paginated table with columns: Name, Mobile, Points, and QR Code preview (thumbnail). Include a search bar that filters by mobile number in real time or on submit. Pagination should show 10 customers per page.",
+      "files": [
+        "frontend/src/pages/Customers.tsx"
+      ],
+      "components": [
+        "qr-code@1.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "camera@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-the-offers-management-page-pages-offers-php-admin-can-create-new-offers-edit-existing-ones-and-delete-them-each-offer-has-offer-name-required-points-and-reward-description-use-inline-forms-or-modal-dialogs-for-create-edit-all-db-operations-must-use-mysqli-prepared-statements",
+      "featureTitle": "Build the Offers Management page (pages/offers.php). Admin can create new offers, edit existing ones, and delete them. Each offer has: Offer Name, Required Points, and Reward Description. Use inline forms or modal dialogs for create/edit. All DB operations must use mysqli prepared statements.",
+      "files": [
+        "frontend/src/pages/Offers.tsx"
+      ],
+      "components": [
+        "qr-code@1.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "camera@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-apply-a-consistent-modern-saas-dashboard-visual-theme-across-all-pages-dark-sidebar-1f2933-orange-primary-accent-ff6b00-white-content-cards-with-soft-box-shadows-and-rounded-corners-a-top-navbar-and-fully-mobile-responsive-layout-the-sidebar-must-include-navigation-links-to-dashboard-add-customer-scan-qr-customers-offers-and-logout",
+      "featureTitle": "Apply a consistent modern SaaS dashboard visual theme across all pages: dark sidebar (#1f2933), orange primary accent (#ff6b00), white content cards with soft box shadows and rounded corners, a top navbar, and fully mobile-responsive layout. The sidebar must include navigation links to Dashboard, Add Customer, Scan QR, Customers, Offers, and Logout.",
+      "files": [
+        "frontend/src/components/DashboardLayout.tsx",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "qr-code@1.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "camera@1.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

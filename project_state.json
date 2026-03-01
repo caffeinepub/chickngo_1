@@ -1,0 +1,137 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "ChickNGo is a QR-Based Customer Loyalty & Chicken Shop Management System for small local chicken shops. Built with Core PHP, MySQL (mysqli), HTML5/CSS3/Vanilla JS, XAMPP-compatible. Features: secure login, admin dashboard, add customer with auto QR code generation, real-time QR scanner with points system, customer management with search/pagination, and offers management. Dark sidebar theme with orange primary color.",
+  "architectural_notes": [
+    "Tech stack: Core PHP (no frameworks), MySQL via mysqli prepared statements, HTML5/CSS3/Vanilla JS",
+    "QR: PHP QR Code Generator for creation, html5-qrcode library for camera scanning",
+    "Project root: /chickngo in htdocs; QR images saved to /qrcodes/customer_id.png",
+    "UI theme: dark sidebar #1f2933, orange primary #ff6b00, white cards, rounded corners, mobile responsive",
+    "Session timeout protection required on all protected pages via includes/auth_check.php"
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- ChickNGo app logo with a stylized chicken icon and bold text, orange and white on dark background (chickngo-logo.dim_300x80.png)",
+  "existing_features": [
+    {
+      "id": "feature-build-a-secure-authentication-system-with-a-login-page-login-php-and-logout-logout-php-sessions-must-be-validated-on-every-protected-page-via-an-auth-check-include-unauthenticated-access-to-any-protected-url-must-redirect-to-login-display-inline-error-messages-on-failed-login-default-admin-credentials-username-admin-password-admin123",
+      "title": "Build a secure authentication system with a login page (login.php) and logout (logout.php). Sessions must be validated on every protected page via an auth_check include. Unauthenticated access to any protected URL must redirect to login. Display inline error messages on failed login. Default admin credentials: username 'admin', password 'admin123'.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-the-admin-dashboard-page-pages-dashboard-php-with-three-summary-cards-total-customers-today-s-scans-and-total-points-issued-data-must-be-fetched-live-from-the-database-layout-uses-a-dark-sidebar-1f2933-and-orange-primary-ff6b00-with-white-cards-soft-shadows-and-rounded-corners-to-match-a-modern-saas-aesthetic",
+      "title": "Create the admin dashboard page (pages/dashboard.php) with three summary cards: Total Customers, Today's Scans, and Total Points Issued. Data must be fetched live from the database. Layout uses a dark sidebar (#1f2933) and orange primary (#ff6b00) with white cards, soft shadows, and rounded corners to match a modern SaaS aesthetic.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-the-add-customer-module-pages-add-customer-php-the-form-accepts-name-and-mobile-on-submit-validate-for-duplicates-mobile-must-be-unique-generate-a-unique-customer-id-in-the-format-cust-timestamp-random-number-insert-the-customer-into-the-db-generate-a-qr-code-image-encoding-the-customer-id-using-a-php-qr-code-library-save-the-image-to-qrcodes-customer-id-png-and-display-a-printable-qr-card-preview-on-the-same-page",
+      "title": "Build the Add Customer module (pages/add_customer.php). The form accepts Name and Mobile. On submit: validate for duplicates (mobile must be unique), generate a unique customer_id in the format CUST + timestamp + random number, insert the customer into the DB, generate a QR code image encoding the customer_id using a PHP QR code library, save the image to /qrcodes/<customer_id>.png, and display a printable QR card preview on the same page.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-the-real-time-qr-scanner-page-pages-scan-php-using-the-html5-qrcode-javascript-library-after-a-successful-scan-extract-the-customer-id-fetch-customer-info-name-mobile-current-points-via-an-ajax-call-to-a-backend-endpoint-and-display-it-on-screen-show-an-add-points-10-button-when-clicked-update-the-customer-s-points-in-the-db-insert-a-record-into-the-scans-table-and-show-a-success-animation-alert",
+      "title": "Build the real-time QR Scanner page (pages/scan.php) using the html5-qrcode JavaScript library. After a successful scan: extract the customer_id, fetch customer info (name, mobile, current points) via an AJAX call to a backend endpoint, and display it on-screen. Show an 'Add Points (+10)' button. When clicked, update the customer's points in the DB, insert a record into the scans table, and show a success animation/alert.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-the-customer-management-page-pages-customers-php-showing-a-searchable-paginated-table-with-columns-name-mobile-points-and-qr-code-preview-thumbnail-include-a-search-bar-that-filters-by-mobile-number-in-real-time-or-on-submit-pagination-should-show-10-customers-per-page",
+      "title": "Build the Customer Management page (pages/customers.php) showing a searchable, paginated table with columns: Name, Mobile, Points, and QR Code preview (thumbnail). Include a search bar that filters by mobile number in real time or on submit. Pagination should show 10 customers per page.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-the-offers-management-page-pages-offers-php-admin-can-create-new-offers-edit-existing-ones-and-delete-them-each-offer-has-offer-name-required-points-and-reward-description-use-inline-forms-or-modal-dialogs-for-create-edit-all-db-operations-must-use-mysqli-prepared-statements",
+      "title": "Build the Offers Management page (pages/offers.php). Admin can create new offers, edit existing ones, and delete them. Each offer has: Offer Name, Required Points, and Reward Description. Use inline forms or modal dialogs for create/edit. All DB operations must use mysqli prepared statements.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-consistent-modern-saas-dashboard-visual-theme-across-all-pages-dark-sidebar-1f2933-orange-primary-accent-ff6b00-white-content-cards-with-soft-box-shadows-and-rounded-corners-a-top-navbar-and-fully-mobile-responsive-layout-the-sidebar-must-include-navigation-links-to-dashboard-add-customer-scan-qr-customers-offers-and-logout",
+      "title": "Apply a consistent modern SaaS dashboard visual theme across all pages: dark sidebar (#1f2933), orange primary accent (#ff6b00), white content cards with soft box shadows and rounded corners, a top navbar, and fully mobile-responsive layout. The sidebar must include navigation links to Dashboard, Add Customer, Scan QR, Customers, Offers, and Logout.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Secure login/logout with session auth and direct URL blocking",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Admin dashboard with Total Customers, Today Scans, Total Points Issued cards",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Add Customer module with auto unique ID, QR code generation and preview",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Real-time QR scanner using html5-qrcode with Add Points (+10) functionality",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Customer management page with table, search by mobile, and pagination",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Offers management with create/edit/delete offers",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Full database.sql setup with chickngo DB, all tables, and default admin user",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Generate the complete database.sql file that creates the 'chickngo' database, all four tables (users, customers, scans, offers) with the specified schema, and inserts the default admin user (username: admin, password: admin123 stored as a hashed value).",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Implement session timeout protection: if a logged-in session has been idle for more than 30 minutes, automatically invalidate the session and redirect to login.php with a timeout message.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "ChickNGo",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

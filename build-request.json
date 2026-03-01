@@ -1,0 +1,225 @@
+{
+  "kind": "build_request",
+  "title": "ChickNGo – QR-Based Customer Loyalty & Chicken Shop Management System",
+  "projectName": "ChickNGo",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Build a secure authentication system with a login page (login.php) and logout (logout.php). Sessions must be validated on every protected page via an auth_check include. Unauthenticated access to any protected URL must redirect to login. Display inline error messages on failed login. Default admin credentials: username 'admin', password 'admin123'.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Build secure login system",
+          "block direct URL access without login",
+          "error messages UI"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Visiting any protected page without a session redirects to login.php",
+        "Incorrect credentials show a visible error message",
+        "Correct credentials start a session and redirect to the dashboard",
+        "Logout destroys the session and redirects to login.php",
+        "Default admin (admin / admin123) can log in successfully"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Create the admin dashboard page (pages/dashboard.php) with three summary cards: Total Customers, Today's Scans, and Total Points Issued. Data must be fetched live from the database. Layout uses a dark sidebar (#1f2933) and orange primary (#ff6b00) with white cards, soft shadows, and rounded corners to match a modern SaaS aesthetic.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Dashboard cards: Total Customers, Today Scans, Total Points Issued",
+          "Clean dashboard analytics"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Dashboard displays three cards with accurate live counts",
+        "Today's Scans reflects only scans from the current date",
+        "Total Points Issued sums all points_added values in the scans table",
+        "Sidebar is visible and functional on desktop and mobile"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Build the Add Customer module (pages/add_customer.php). The form accepts Name and Mobile. On submit: validate for duplicates (mobile must be unique), generate a unique customer_id in the format CUST + timestamp + random number, insert the customer into the DB, generate a QR code image encoding the customer_id using a PHP QR code library, save the image to /qrcodes/<customer_id>.png, and display a printable QR card preview on the same page.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Generate unique ID: CUST + timestamp + random number",
+          "Generate QR code containing customer_id",
+          "Save QR image",
+          "Display generated QR card preview",
+          "Prevent duplicate customers"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Submitting with a duplicate mobile number shows an error and does not insert",
+        "A unique customer_id is generated on every new registration",
+        "A QR code PNG is saved to /qrcodes/<customer_id>.png",
+        "The page displays the customer's QR card preview after successful registration",
+        "All inputs are validated server-side using prepared statements"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Build the real-time QR Scanner page (pages/scan.php) using the html5-qrcode JavaScript library. After a successful scan: extract the customer_id, fetch customer info (name, mobile, current points) via an AJAX call to a backend endpoint, and display it on-screen. Show an 'Add Points (+10)' button. When clicked, update the customer's points in the DB, insert a record into the scans table, and show a success animation/alert.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Use html5-qrcode",
+          "Fetch customer info",
+          "Button: ✅ Add Points (+10)",
+          "Update points",
+          "Insert scan record",
+          "Show success animation"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Camera activates on page load and scans QR codes in real time",
+        "Customer name, mobile, and points are displayed after a valid scan",
+        "Clicking Add Points increments the customer's points by 10 in the database",
+        "A scan record with points_added = 10 is inserted into the scans table",
+        "A visible success animation or alert confirms the points were added"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Build the Customer Management page (pages/customers.php) showing a searchable, paginated table with columns: Name, Mobile, Points, and QR Code preview (thumbnail). Include a search bar that filters by mobile number in real time or on submit. Pagination should show 10 customers per page.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Table with: Name, Mobile, Points, QR Preview, Search Bar, Pagination",
+          "Search customer by mobile"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Table displays all customers with Name, Mobile, Points, and QR thumbnail",
+        "Search by mobile number filters the table results correctly",
+        "Pagination limits results to 10 per page with working next/previous controls",
+        "QR thumbnail links to or displays the generated QR image"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Build the Offers Management page (pages/offers.php). Admin can create new offers, edit existing ones, and delete them. Each offer has: Offer Name, Required Points, and Reward Description. Use inline forms or modal dialogs for create/edit. All DB operations must use mysqli prepared statements.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Admin can: Create offer, Edit offer, Delete offer",
+          "Fields: Offer Name, Required Points, Reward Description"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Admin can create a new offer with all three fields",
+        "Admin can edit an existing offer and save changes",
+        "Admin can delete an offer with a confirmation prompt",
+        "All offers are listed in a table on the page",
+        "All operations use prepared statements"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Generate the complete database.sql file that creates the 'chickngo' database, all four tables (users, customers, scans, offers) with the specified schema, and inserts the default admin user (username: admin, password: admin123 stored as a hashed value).",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Create database: chickngo",
+          "Insert default admin: username: admin password: admin123"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Importing database.sql in phpMyAdmin creates all four tables with correct columns and constraints",
+        "A default admin user exists and can log in with admin / admin123",
+        "customer_id in customers table has a UNIQUE constraint",
+        "All AUTO_INCREMENT and DEFAULT TIMESTAMP fields are correctly defined"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Implement session timeout protection: if a logged-in session has been idle for more than 30 minutes, automatically invalidate the session and redirect to login.php with a timeout message.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Session timeout protection"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Sessions idle for more than 30 minutes are destroyed on the next page load",
+        "User is redirected to login.php with a visible timeout notice"
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Apply a consistent modern SaaS dashboard visual theme across all pages: dark sidebar (#1f2933), orange primary accent (#ff6b00), white content cards with soft box shadows and rounded corners, a top navbar, and fully mobile-responsive layout. The sidebar must include navigation links to Dashboard, Add Customer, Scan QR, Customers, Offers, and Logout.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Dark sidebar (#1f2933)",
+          "Orange primary (#ff6b00)",
+          "White cards",
+          "Soft shadows",
+          "Rounded corners",
+          "Must look like modern SaaS dashboard",
+          "Mobile responsive required"
+        ]
+      },
+      "acceptanceCriteria": [
+        "All pages share the same sidebar and top navbar layout",
+        "Sidebar background is #1f2933 and primary accent color is #ff6b00",
+        "Cards have white backgrounds, rounded corners, and soft shadows",
+        "Layout is usable on screens as small as 375px wide",
+        "Active sidebar item is visually highlighted"
+      ]
+    }
+  ],
+  "constraints": [
+    "Backend must use Core PHP only — no frameworks (no Laravel, Symfony, etc.)",
+    "Database access must use mysqli with prepared statements exclusively",
+    "QR code generation must use a PHP-based QR library saving PNG files to /qrcodes/",
+    "QR scanning in the browser must use the html5-qrcode JavaScript library",
+    "Project must be XAMPP-compatible and runnable by placing the folder in htdocs",
+    "Frontend must use only HTML5, CSS3, and Vanilla JavaScript — no frontend frameworks"
+  ],
+  "nonGoals": [
+    "Customer-facing self-service portal or mobile app",
+    "Online payment or e-commerce features",
+    "Email or SMS notification system",
+    "Multi-shop or multi-tenant support",
+    "REST API for third-party integrations",
+    "Internet Identity or any web3 authentication"
+  ],
+  "imageRequirements": {
+    "required": [
+      "ChickNGo app logo with a stylized chicken icon and bold text, orange and white on dark background (chickngo-logo.dim_300x80.png)"
+    ],
+    "edits": []
+  }
+}

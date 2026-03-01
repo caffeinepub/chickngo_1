@@ -1,0 +1,165 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "ChickNGo – QR-Based Customer Loyalty Frontend",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Implement secure authentication UI with login page, session management, and protected route guards",
+      "acceptanceCriteria": [
+        "Visiting any protected page without authentication redirects to login page",
+        "Incorrect credentials show a visible error message",
+        "Correct credentials start a session and redirect to the dashboard",
+        "Logout clears the session and redirects to login page",
+        "Default admin (admin / admin123) can log in successfully"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/Login.tsx",
+          "operation": "create",
+          "description": "Create login page with username/password form, inline error display, and authentication via backend.authenticate(). On success, store session and redirect to dashboard. Include the ChickNGo logo from frontend/public/assets/generated/chickngo-logo.dim_300x80.png."
+        },
+        {
+          "path": "frontend/src/contexts/AuthContext.tsx",
+          "operation": "create",
+          "description": "Create authentication context provider managing login state, session storage, logout function, and session timeout tracking (30-minute idle timeout as per REQ-8)."
+        },
+        {
+          "path": "frontend/src/components/ProtectedRoute.tsx",
+          "operation": "create",
+          "description": "Create protected route wrapper component that checks authentication state and redirects unauthenticated users to /login."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wrap the app with AuthContext provider and configure routing with protected routes for dashboard, add-customer, scan, customers, and offers pages."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Create admin dashboard with three live summary cards (Total Customers, Today's Scans, Total Points Issued) using backend data",
+      "acceptanceCriteria": [
+        "Dashboard displays three cards with accurate live counts",
+        "Today's Scans reflects only scans from the current date",
+        "Total Points Issued sums all points_added values",
+        "Sidebar is visible and functional on desktop and mobile"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/Dashboard.tsx",
+          "operation": "create",
+          "description": "Create dashboard page displaying three summary cards with live data. Fetch customer count, today's scan count, and total points from backend methods. Use shadcn/ui Card components with the design theme (dark sidebar #1f2933, orange primary #ff6b00, white cards with shadows)."
+        },
+        {
+          "path": "frontend/src/components/DashboardLayout.tsx",
+          "operation": "create",
+          "description": "Create shared layout component with dark sidebar (#1f2933), top navbar, and navigation links (Dashboard, Add Customer, Scan QR, Customers, Offers, Logout). Include the ChickNGo logo from frontend/public/assets/generated/chickngo-logo.dim_300x80.png in the sidebar. Make fully responsive for mobile."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Build Add Customer form with validation, QR code generation, and printable preview",
+      "acceptanceCriteria": [
+        "Submitting with a duplicate mobile number shows an error and does not insert",
+        "A unique customer_id is generated on every new registration",
+        "A QR code PNG is displayed after successful registration",
+        "The page displays the customer's QR card preview after successful registration",
+        "All inputs are validated client-side before submission"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/AddCustomer.tsx",
+          "operation": "create",
+          "description": "Create add customer page with form (Name, Mobile). On submit, register customer via backend, generate customer ID (CUST+timestamp+random), create QR code encoding the customer_id using qrcode.react library, and display printable QR card preview. Handle duplicate mobile validation errors from backend."
+        },
+        {
+          "path": "frontend/src/components/QRCardPreview.tsx",
+          "operation": "create",
+          "description": "Create printable QR card component displaying customer name, mobile, QR code, and ChickNGo branding with print-friendly CSS."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Build real-time QR scanner page with customer info display and points addition",
+      "acceptanceCriteria": [
+        "Camera activates on page load and scans QR codes in real time",
+        "Customer name, mobile, and points are displayed after a valid scan",
+        "Clicking Add Points increments the customer's points by 10 in the database",
+        "A scan record with points_added = 10 is inserted",
+        "A visible success animation or alert confirms the points were added"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/ScanQR.tsx",
+          "operation": "create",
+          "description": "Create QR scanner page using the qr-code component's useQRScanner hook with facingMode 'environment'. Verify the component's usage instructions before implementing. After successful scan, extract customer_id, fetch customer info from backend, display name/mobile/points, and show 'Add Points (+10)' button. On click, call backend.addPoints() with 10 points and show success animation using shadcn/ui Toast."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Build Customer Management page with searchable, paginated table showing customer data and QR thumbnails",
+      "acceptanceCriteria": [
+        "Table displays all customers with Name, Mobile, Points, and QR thumbnail",
+        "Search by mobile number filters the table results correctly",
+        "Pagination limits results to 10 per page with working next/previous controls",
+        "QR thumbnail links to or displays the generated QR image"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/Customers.tsx",
+          "operation": "create",
+          "description": "Create customer management page with searchable table using shadcn/ui Table component. Fetch customer list from backend, implement client-side search by mobile, pagination (10 per page), and display QR code thumbnails using qrcode.react library."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Build Offers Management page with create, edit, and delete functionality",
+      "acceptanceCriteria": [
+        "Admin can create a new offer with all three fields",
+        "Admin can edit an existing offer and save changes",
+        "Admin can delete an offer with a confirmation prompt",
+        "All offers are listed in a table on the page"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/Offers.tsx",
+          "operation": "create",
+          "description": "Create offers management page displaying offers table with create/edit/delete actions. Use shadcn/ui Dialog for create/edit forms (Offer Name, Required Points, Reward Description) and AlertDialog for delete confirmation. Call backend.addOffer(), backend.deleteOffer(), and fetch offers via backend.getAllOffers()."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Apply consistent modern SaaS dashboard visual theme across all pages",
+      "acceptanceCriteria": [
+        "All pages share the same sidebar and top navbar layout",
+        "Sidebar background is #1f2933 and primary accent color is #ff6b00",
+        "Cards have white backgrounds, rounded corners, and soft shadows",
+        "Layout is usable on screens as small as 375px wide",
+        "Active sidebar item is visually highlighted"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Update global styles with theme colors (dark sidebar #1f2933, orange primary #ff6b00). Define CSS custom properties for theme colors and ensure mobile responsiveness down to 375px."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Configure Tailwind with custom colors (sidebar: #1f2933, primary: #ff6b00) and ensure responsive breakpoints support 375px+ screens."
+        },
+        {
+          "path": "frontend/src/components/DashboardLayout.tsx",
+          "operation": "modify",
+          "description": "Ensure DashboardLayout applies consistent theme colors, white card backgrounds with rounded corners and shadows, and highlights active navigation items. Include ChickNGo logo from frontend/public/assets/generated/chickngo-logo.dim_300x80.png."
+        }
+      ]
+    }
+  ]
+}

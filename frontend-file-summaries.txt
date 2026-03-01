@@ -1,0 +1,16 @@
+{
+  "frontend/src/index.css": "Global styles with ChickNGo brand OKLCH color system (dark sidebar #1f2933 mapped to oklch, orange primary), Inter/Poppins fonts, sidebar nav item styles, stat card hover effects, success/points animations, and print styles.",
+  "frontend/tailwind.config.js": "Tailwind config extended with Inter/Poppins font families, brand orange and sidebar colors, custom shadow tokens (card, orange glow), and fade-in/scale-in animations.",
+  "frontend/src/contexts/AuthContext.tsx": "Authentication context managing login state via backend.authenticate(), session storage persistence, 30-minute idle timeout with activity tracking, and logout functionality.",
+  "frontend/src/hooks/useQueries.ts": "All React Query hooks for offers (backend) and local customer/scan management (localStorage), including dashboard stats, add customer with duplicate check, add points with scan recording.",
+  "frontend/src/components/ProtectedRoute.tsx": "Simple route guard component that redirects unauthenticated users to /login using TanStack Router's Navigate.",
+  "frontend/src/components/DashboardLayout.tsx": "Shared admin layout with dark sidebar, orange-accented navigation, responsive mobile drawer, and top navbar — updated all flex-shrink-0 to shrink-0 for Tailwind v3 compatibility.",
+  "frontend/src/components/QRCardPreview.tsx": "Printable QR loyalty card component using QR Server API for QR image generation, with print and download actions.",
+  "frontend/src/pages/Login.tsx": "Login page with username/password form, session timeout alert, error display, and ChickNGo branding with orange/dark theme.",
+  "frontend/src/pages/Dashboard.tsx": "Admin dashboard with three live stat cards and recent customers/offers panels — updated flex-shrink-0 to shrink-0 throughout.",
+  "frontend/src/pages/AddCustomer.tsx": "Add customer form with validation, duplicate mobile detection, QR card preview — updated flex-shrink-0 to shrink-0.",
+  "frontend/src/pages/ScanQR.tsx": "Real-time QR scanner page using useQRScanner hook (imported via @/qr-code/useQRScanner alias instead of the unresolvable bare module path), with customer lookup, Add Points (+10) button, success animation, and toast notifications.",
+  "frontend/src/pages/Customers.tsx": "Searchable, paginated customer management table with QR thumbnails — updated flex-shrink-0 to shrink-0.",
+  "frontend/src/pages/Offers.tsx": "Offers management page with create/delete dialogs connected to backend — updated flex-shrink-0 to shrink-0.",
+  "frontend/src/App.tsx": "Main app with TanStack Router using properly named React components (ProtectedDashboard, ProtectedAddCustomer, etc.) for all protected routes, fixing the react-hooks/rules-of-hooks error where useAuth was called inside an anonymous inline component."
+}
